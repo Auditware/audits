@@ -29,7 +29,12 @@ The following items were explicitly defined out of scope:
 
 Audit commit hash: [**9b4eed2**](https://github.com/ETHCF/swapboard/commit/9b4eed2444947d465b5e0e31e65d72b03f21320e)
 
-## 
+**18 Feb 2026 Retest**  
+During February 2026 the team was asked to perform a retest to attest that the findings originally brought in this report are fixed. Results of the retest are tracked on the finding table or extended finding comments.
+
+Please note that there remain proven exploits affecting the protocol as described above, that were out of scope for the test and retests.
+
+**Retest** commit hash: [**0c0a7ee**](https://github.com/ETHCF/swapboard/commit/0c0a7eea363f3aa1612a16a5e2a677653d143d89)
 
 ## Contract Overview
 
@@ -59,16 +64,19 @@ We recommend re-visiting those risks as soon as possible in the protocol's lifet
 
 # **Findings Overview**
 
-| Finding | Component | Risk Level |
-| :---: | :---: | :---: |
-| [**AW-H-01: Insufficient Input Validation**](#aw-h-01:-insufficient-input-validation) | Frontend | ***High*** |
-| **[AW-M-01: Forced Browsing](#aw-m-01:-forced-browsing)** | Frontend | ***Medium*** |
-| **[AW-M-02: Insufficient Contract Security Tests](#aw-m-02:-insufficient-contract-security-tests)** | Contract | ***Medium*** |
-| **[AW-L-01: Missing decrement logic in OrderFilled/OrderCanceled handlers inflates token order counts](https://docs.google.com/document/d/1L-Jv5jxYOg6whQiZ2YvH3M1PW2Lyxt95K8uQi-NaLCo/edit?pli=1&tab=t.0#heading=h.sc2f4z5qpxuq)** | Subgraph | ***Low*** |
+| Finding | Component | Risk Level | Retest Status |
+| :---: | :---: | :---: | :---: |
+| [**AW-H-01: Insufficient Input Validation**](#aw-h-01:-insufficient-input-validation) | Frontend | ***High*** | ***Fixed*** |
+| **[AW-M-01: Forced Browsing](#aw-m-01:-forced-browsing)** | Frontend | ***Medium*** | ***Fixed*** |
+| **[AW-M-02: Insufficient Contract Security Tests](#aw-m-02:-insufficient-contract-security-tests)** | Contract | ***Medium*** | ***Fixed*** |
+| **[AW-L-01: Missing decrement logic in OrderFilled/OrderCanceled handlers inflates token order counts](https://docs.google.com/document/d/1L-Jv5jxYOg6whQiZ2YvH3M1PW2Lyxt95K8uQi-NaLCo/edit?pli=1&tab=t.0#heading=h.sc2f4z5qpxuq)** | Subgraph | ***Low*** | ***Fixed*** |
 
 # **AW-H-01: Insufficient Input Validation** {#aw-h-01:-insufficient-input-validation}
 
-**Severity:** High									**Status:**Unmitigated
+**Severity:** High									**Status:**Fixed
+
+**Retest notes:**  
+Fixed by adding forward slash escaping to \`**escapeHtml()**\` and replacing all \`**innerHTML**\` usage with safe \`**textContent**\` / \`**createTextNode**\` methods.
 
 **Locations:**
 
@@ -106,7 +114,10 @@ An attacker manages to exploit a scenario like portrayed above would be able to 
 
 # **AW-M-01: Forced Browsing** {#aw-m-01:-forced-browsing}
 
-**Severity:** Medium								**Status:** Unmitigated
+**Severity:** Medium								**Status:** **Status:**Fixed
+
+**Retest notes:**  
+Fixed by implementing whitelist-based deployments that copy only production files to a \`**dist/**\` directory, excluding all development files (tests, configs, package.json).
 
 **Locations:**
 
@@ -140,7 +151,10 @@ Although no current secret was found during the audit as a result of these files
 
 # **AW-M-02: Insufficient Contract Security Tests** {#aw-m-02:-insufficient-contract-security-tests}
 
-**Severity:** Medium								**Status:** Unmitigated
+**Severity:** Medium								**Status:** Fixed
+
+**Retest notes:**  
+Tests were re-organized into \`**exploit/**\` (defensive validation tests) vs \`**security-research/ProvenExploits.t.sol**\` (known vulnerability documentation) with clear headers and naming conventions. Proven exploits present in a contract still remain dangerous and a risk to the protocol, but as described above they were out of scope of this assessment.
 
 **Locations:**
 
@@ -177,7 +191,10 @@ This testing methodology opens multiple points of failure, such as developer fal
 
 # **AW-L-01: Missing decrement logic in OrderFilled/OrderCanceled handlers inflates token order counts**
 
-**Severity:** Low									**Status:** Unmitigated
+**Severity:** Low									**Status:** Fixed
+
+**Retest notes:**  
+Fixed by adding \`**ordersSelling.minus(ONE)**\` and \`**ordersBuying.minus(ONE)**\` decrements in both \`**handleOrderFilled**\` and \`**handleOrderCanceled**\` subgraph handlers.
 
 **Locations:**
 
