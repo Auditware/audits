@@ -4,6 +4,12 @@
 
 <h1 align="center">Auditware - Public Audit Portfolio</h1>
 
+<p align="center">
+  <a href="https://calendly.com/d/cnqr-49f-xdy/auditware-consultation"><img src="https://img.shields.io/badge/Book%20a%20Call-006BFF?style=flat&logo=googlecalendar&logoColor=white" alt="Book a Call"/></a>
+  &nbsp;
+  <a href="https://t.me/forefy_t"><img src="https://img.shields.io/badge/Telegram-forefy__t-2CA5E0?style=flat&logo=telegram&logoColor=white" alt="Telegram"/></a>
+</p>
+
 Auditware covers Web3's full security surface - from smart contracts to the infrastructure, operations, and human factors surrounding them. A decade of expertise across every layer a protocol touches.
 
 A large sum of our work isn't public, as clients decide what gets disclosed. What you'll find here is a representative slice of that work - but a good read that's for sure.
